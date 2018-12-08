@@ -1,6 +1,9 @@
 var Membre = require('../models/MembreModel');
 
 var MembreController = {
+
+    // Fonction qui va récupérer et afficher le nom et le prénom de tous les membres
+
     liste: function (req, res) {
 
         Membre.find({}, {_id: 0, nom: 1, prenom: 1})
@@ -11,6 +14,9 @@ var MembreController = {
             .catch((err) => console.log(err));
 
     },
+
+    // Fonction qui va récupérer et afficher un membre en fonction de son nom et de son prénom
+
     getUnMembre: function (req, res) {
         Membre.find({id: req.params.id}, {_id: 0, id: 1, nom: 1, prenom: 1})
             .then((membre) => membre != null ? res.json({"status": true, "membre": membre}) : res.json({
@@ -20,6 +26,9 @@ var MembreController = {
             .catch((err) => console.log(err));
 
     },
+
+    //Fonction qui va ajouter un membre en vérifiant que l'ID n'existe pas déjà
+
     ajouterUnMembre: function (req, res) {
 
         Membre.findOne({id: req.body.id}, {_id: 1}).then((membre) => {
@@ -38,6 +47,9 @@ var MembreController = {
             .catch((err) => res.json({"status": false, "message": "membre validation failed : " + err.message}))
 
     },
+
+    //Fonction qui va modifier un membre  en vérifiant qu'il existe bien déjà
+
     modifierUnMembre: function (req, res) {
 
         Membre.findOneAndUpdate({id: req.body.id}, req.body, {new: true}, function (err, membre) {
@@ -52,6 +64,8 @@ var MembreController = {
         }).then(() => res.json({"status": true, "membre": "membre modifié"}))
 
     },
+
+    //Fonction qui va supprimer un membre  en vérifiant qu'il existe bien déjà
 
     supprimerUnMembre: function (req, res) {
 

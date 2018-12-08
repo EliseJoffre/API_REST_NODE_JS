@@ -1,6 +1,7 @@
 let mongoose = require('mongoose');
 
 let Schema = mongoose.Schema;
+
 let membreSchema = new Schema({
         id: {type: Number, required: true, unique: true},
         annee: {type: Number, required: true},

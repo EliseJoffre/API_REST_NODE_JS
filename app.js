@@ -1,13 +1,14 @@
 let mongoose = require('mongoose');
 let express = require('express');
 let bodyparser = require('body-parser');
-var app = express();
+var router = express.Router();
 var routerMembres = require("./routers/MembreRouter.js")
 var routerUsers = require("./routers/UserRouter.js")
+var app = express();
+var port = 5000;
 mongoose.Promise = global.Promise;
 
-let bodyParser = require('body-parser')
-app.use(bodyParser.json())
+app.use(bodyparser.json())
 
 mongoose.connect("mongodb://localhost/CollegeFrance2016",
     {useNewUrlParser: true});
@@ -15,11 +16,9 @@ mongoose.connect("mongodb://localhost/CollegeFrance2016",
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'erreur connexion :'));
 db.once('open', function () {
-    console.log('Connecté')
+    console.log('Vous etes connectes à College France 2016 !')
 });
 
-var router = express.Router();
-var port = 5000;
 app.listen(port);
 console.log('le serveur REST est lancé sur le port ' + port);
 
